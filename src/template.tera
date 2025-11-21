@@ -1,6 +1,6 @@
 — {{user}}@{{host}}
 OS:                            ArchLinux, MacOS
-Uptime:                        27 years, 7 months, 24 days
+Uptime:                        {{ uptime }}
 Host:                          Frappe Technologies.
 Kernel:                        Security Engineer
 IDE:                           Neovim

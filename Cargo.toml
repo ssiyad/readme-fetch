@@ -5,3 +5,5 @@ edition = "2024"
 
 [dependencies]
 tera = "1.20.1"
+chrono = "0.4.42"
+date-differencer = "0.1.3"
