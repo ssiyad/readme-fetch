@@ -1,0 +1,42 @@
+name: Readme Fetch
+description: Generate your profile/readme in (neo)fetch style
+inputs:
+  dry_run:
+    description: Run without committing
+    required: false
+    default: no
+  user:
+    description: Your username
+    required: false
+    default: ssiyad
+  host:
+    description: Your hostname
+    required: false
+    default: baghdad
+outputs:
+  readme:
+    description: The generated readme content
+runs:
+  using: composite
+  steps:
+    - uses: dtolnay/rust-toolchain@stable
+    - uses: actions/checkout@v6
+      with:
+        repository: ssiyad/readme-fetch
+        path: readme_fetch
+    - name: Cargo run
+      run: |
+        cd readme_fetch
+        cargo run > ../readme.md
+      shell: bash
+    - name: Commit and push Readme
+      if: ${{ inputs.dry_run != 'yes' }}
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add readme.md
+        git commit -m "update readme with readme-fetch" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+      shell: bash
