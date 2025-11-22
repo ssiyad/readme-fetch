@@ -7,12 +7,10 @@ inputs:
     default: no
   user:
     description: Your username
-    required: false
-    default: ssiyad
+    required: true
   host:
     description: Your hostname
-    required: false
-    default: baghdad
+    required: true
   git_user: 
     description: Your git username
     required: false
