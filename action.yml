@@ -24,11 +24,6 @@ outputs:
     description: The generated readme content
 runs:
   using: composite
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    GITHUB_USER: ${{ github.repository_owner }}
-    FETCH_USER: ${{ inputs.user }}
-    FETCH_HOST: ${{ inputs.host }}
   steps:
     - uses: dtolnay/rust-toolchain@stable
     - uses: actions/checkout@v6
@@ -36,12 +31,14 @@ runs:
         repository: ssiyad/readme-fetch
         path: readme_fetch
     - name: Cargo run
-      env:
-        FETCH_USER: ${{ inputs.user }}
-        FETCH_HOST: ${{ inputs.host }}
       run: |
         cd readme_fetch
         cargo run > ../readme.md
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        GITHUB_USER: ${{ github.repository_owner }}
+        FETCH_USER: ${{ inputs.user }}
+        FETCH_HOST: ${{ inputs.host }}
       shell: bash
     - name: Commit and push Readme
       if: ${{ inputs.dry_run != 'yes' }}
@@ -51,4 +48,6 @@ runs:
         git add readme.md
         git commit -m "update readme with readme-fetch" || echo "No changes to commit"
         git push
+      env:
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
       shell: bash
