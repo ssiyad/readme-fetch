@@ -31,8 +31,9 @@ async fn template_context() -> tera::Context {
     context.insert("uptime", &uptime());
     context.insert(
         "commit_count",
-        &sources::commit_count(octo, &github_user()).await,
+        &sources::commit_count(&octo, &github_user()).await,
     );
+    context.insert("pr_count", &sources::pr_count(&octo, &github_user()).await);
     context
 }
 

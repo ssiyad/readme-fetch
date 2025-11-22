@@ -18,4 +18,5 @@
 
 — Stats (Last 30 days) 
 . Commits:                       {{ commit_count }}
+. Pull Requests:                 {{ pr_count }}
 ```
