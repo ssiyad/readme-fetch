@@ -13,6 +13,14 @@ inputs:
     description: Your hostname
     required: false
     default: baghdad
+  git_user: 
+    description: Your git username
+    required: false
+    default: github-actions[bot]
+  git_email:
+    description: Your git email
+    required: false
+    default: github-actions[bot]@users.noreply.github.com
 outputs:
   readme:
     description: The generated readme content
@@ -32,8 +40,8 @@ runs:
     - name: Commit and push Readme
       if: ${{ inputs.dry_run != 'yes' }}
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "${{ inputs.git_user }}"
+        git config --global user.email "${{ inputs.git_email }}"
         git add readme.md
         git commit -m "update readme with readme-fetch" || echo "No changes to commit"
         git push
