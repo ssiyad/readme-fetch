@@ -7,3 +7,9 @@ edition = "2024"
 tera = "1.20.1"
 chrono = "0.4.42"
 date-differencer = "0.1.3"
+octocrab = "0.48.0"
+serde_json = "1.0.145"
+
+[dependencies.tokio]
+version = "1.48.0"
+features = ["full"]
