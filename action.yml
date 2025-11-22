@@ -33,6 +33,9 @@ runs:
         repository: ssiyad/readme-fetch
         path: readme_fetch
     - name: Cargo run
+      env:
+        FETCH_USER: ${{ inputs.user }}
+        FETCH_HOST: ${{ inputs.host }}
       run: |
         cd readme_fetch
         cargo run > ../readme.md

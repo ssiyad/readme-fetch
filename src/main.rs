@@ -1,5 +1,6 @@
 use chrono::prelude::*;
 use date_differencer;
+use std::env;
 use tera;
 
 fn main() {
@@ -25,11 +26,11 @@ fn template_context() -> tera::Context {
 }
 
 fn user() -> String {
-    "ssiyad".to_string()
+    env::var("FETCH_USER").expect("FETCH_USER not set")
 }
 
 fn host() -> String {
-    "baghdad".to_string()
+    env::var("FETCH_HOST").expect("FETCH_HOST not set")
 }
 
 fn uptime() -> String {
