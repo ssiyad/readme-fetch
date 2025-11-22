@@ -1,18 +1,18 @@
 ```
-— {{user}}@{{host}}
-OS:                            ArchLinux, MacOS
-Uptime:                        {{ uptime }}
-Host:                          Frappe Technologies.
-Kernel:                        Security Engineer
-IDE:                           Neovim
-
-Languages.Programming:         Python, TypeScript, Rust, Go
-Languages.Real:                English, Malayalam
-
+{{user}}@{{host}}
+. OS:                            ArchLinux, MacOS
+. Uptime:                        {{ uptime }}
+. Host:                          Frappe Technologies.
+. Kernel:                        Security Engineer
+. IDE:                           Neovim
+.
+. Languages.Programming:         Python, TypeScript, Rust, Go
+. Languages.Real:                English, Malayalam
+ 
 — Contact 
-Email.Personal:                hello@ssiyad.com
-Email.Work:                    sabu@frappe.io
-LinkedIn:                      ssiyad
-GitHub:                        ssiyad
-Telegram                       @ssiyad
+. Email.Personal:                hello@ssiyad.com
+. Email.Work:                    sabu@frappe.io
+. LinkedIn:                      ssiyad
+. GitHub:                        ssiyad
+. Telegram                       @ssiyad
 ```
