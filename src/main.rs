@@ -21,8 +21,9 @@ async fn output() {
 }
 
 async fn template_context() -> tera::Context {
-    let octo = octocrab::instance()
-        .user_access_token(github_token())
+    let octo = octocrab::OctocrabBuilder::default()
+        .personal_token(github_token())
+        .build()
         .unwrap();
     let mut context = tera::Context::new();
     context.insert("user", &user());

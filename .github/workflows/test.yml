@@ -13,3 +13,5 @@ jobs:
           dry_run: yes
           user: ssiyad
           host: havana
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
