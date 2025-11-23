@@ -11,6 +11,9 @@ inputs:
   host:
     description: Your hostname
     required: true
+  birthday:
+    description: Your birthday in YYYY-MM-DD format
+    required: true
   git_user: 
     description: Your git username
     required: false
@@ -36,6 +39,7 @@ runs:
         cargo run -- \
           --user "${{ inputs.user }}" \
           --host "${{ inputs.host }}" \
+          --birthday "${{ inputs.birthday }}" \
           --github-user "${{ github.repository_owner }}" \
           --github-token "${{ env.GITHUB_TOKEN }}" \
           > ../readme.md

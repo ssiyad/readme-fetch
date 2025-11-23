@@ -1,4 +1,4 @@
-use chrono::{Days, Utc};
+use chrono::{Days, NaiveDate, Utc};
 use octocrab::Octocrab;
 
 pub async fn commit_count(octo: &Octocrab, user: &str) -> u64 {
@@ -55,4 +55,17 @@ pub async fn pr_count(octo: &Octocrab, user: &str) -> u64 {
     response["data"]["user"]["contributionsCollection"]["totalPullRequestContributions"]
         .as_u64()
         .unwrap_or(0)
+}
+
+pub fn uptime(birthday: &str) -> String {
+    let now = Utc::now().naive_utc();
+    let birthday_date = NaiveDate::parse_from_str(birthday, "%Y-%m-%d")
+        .unwrap()
+        .and_hms_opt(0, 0, 0)
+        .unwrap();
+    let diff = date_differencer::date_diff(birthday_date, now);
+    format!(
+        "{} years, {} months, {} days",
+        diff.years, diff.months, diff.days,
+    )
 }

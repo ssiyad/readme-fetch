@@ -13,5 +13,6 @@ jobs:
           dry_run: yes
           user: ssiyad
           host: havana
+          birthday: 1998-03-28
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
