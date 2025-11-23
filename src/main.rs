@@ -27,13 +27,17 @@ struct Args {
 
 #[tokio::main]
 async fn main() {
-    let args = Args::parse();
-    output(args).await;
+    output().await;
 }
 
-async fn output(args: Args) {
+async fn output() {
+    let args = Args::parse();
+    let octo = octocrab::OctocrabBuilder::default()
+        .personal_token(args.github_token.clone())
+        .build()
+        .unwrap();
     let mut tera = tera::Tera::default();
-    let context = template_context(args).await;
+    let context = template_context(args, octo).await;
     let template_name = "template";
     let template_string = include_str!("template.tera");
     tera.add_raw_template(template_name, template_string).ok();
@@ -41,23 +45,18 @@ async fn output(args: Args) {
     print!("{}", rendered);
 }
 
-async fn template_context(args: Args) -> tera::Context {
-    let octo = octocrab::OctocrabBuilder::default()
-        .personal_token(args.github_token)
-        .build()
-        .unwrap();
+async fn template_context(args: Args, octo: octocrab::Octocrab) -> tera::Context {
     let mut context = tera::Context::new();
-    context.insert("user", &args.user);
-    context.insert("host", &args.host);
-    context.insert("uptime", &uptime());
-    context.insert(
-        "commit_count",
-        &sources::commit_count(&octo, &args.github_user).await,
-    );
-    context.insert(
-        "pr_count",
-        &sources::pr_count(&octo, &args.github_user).await,
-    );
+    let user = args.user;
+    let host = args.host;
+    let uptime = uptime();
+    let commit_count = sources::commit_count(&octo, &args.github_user).await;
+    let pr_count = sources::pr_count(&octo, &args.github_user).await;
+    context.insert("user", &user);
+    context.insert("host", &host);
+    context.insert("uptime", &uptime);
+    context.insert("commit_count", &commit_count);
+    context.insert("pr_count", &pr_count);
     context
 }
 
