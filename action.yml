@@ -33,12 +33,12 @@ runs:
     - name: Cargo run
       run: |
         cd readme_fetch
-        cargo run > ../readme.md
-      env:
-        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-        GITHUB_USER: ${{ github.repository_owner }}
-        FETCH_USER: ${{ inputs.user }}
-        FETCH_HOST: ${{ inputs.host }}
+        cargo run -- \
+          --user "${{ inputs.user }}" \
+          --host "${{ inputs.host }}" \
+          --github-user "${{ github.repository_owner }}" \
+          --github-token "${{ env.GITHUB_TOKEN }}" \
+          > ../readme.md
       shell: bash
     - name: Commit and push Readme
       if: ${{ inputs.dry_run != 'yes' }}
